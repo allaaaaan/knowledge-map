@@ -48,6 +48,7 @@ button:focus-visible,a:focus-visible,summary:focus-visible,.map-shell:focus-visi
  gap:12px;pointer-events:none
 }
 .map-chrome>*{pointer-events:auto}
+.map-chrome--solo{justify-content:flex-end}
 .level{
  display:flex;align-items:center;gap:9px;font-size:11px;
  color:#697b67;background:#faf9f5e8;border:1px solid #e5e9df;

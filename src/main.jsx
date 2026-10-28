@@ -12,24 +12,17 @@ function App({scene}){
  const [api,setApi]=useState(null);
  const [zoom,setZoom]=useState(.6);
  const level=detailLevel(zoom);
+ const hasDetails=scene.elements.some(e=>!e.isDeleted&&(e.customData?.minZoom??0)>0);
 
- const fit=useCallback((readableOnPhone=false)=>{
+ const fit=useCallback(()=>{
   if(!api)return;
-  api.scrollToContent(visibleElements(scene.elements,0),{fitToContent:true,animate:false,viewportZoomFactor:.8});
-  if(readableOnPhone&&window.matchMedia('(max-width: 720px)').matches){
-   requestAnimationFrame(()=>{
-    const state=api.getAppState();
-    const target=Math.max(state.zoom.value,.64);
-    if(target>state.zoom.value){
-     api.updateScene({appState:centeredZoom(state,target),captureUpdate:CaptureUpdateAction.NEVER});
-    }
-   });
-  }
+  const narrow=window.matchMedia('(max-width: 720px)').matches;
+  api.scrollToContent(visibleElements(scene.elements,0),{fitToContent:true,animate:false,viewportZoomFactor:narrow ? 0.94 : 0.82});
  },[api,scene]);
 
  useEffect(()=>{
   if(!api)return;
-  const timer=setTimeout(()=>fit(true),150);
+  const timer=setTimeout(()=>fit(),150);
   return()=>clearTimeout(timer);
  },[api,fit]);
 
@@ -57,8 +50,8 @@ function App({scene}){
   </header>
   <section className="map-shell" aria-label="Read-only knowledge map" tabIndex={0}>
    <div className="canvas"><Excalidraw excalidrawAPI={setApi} initialData={{elements:visibleElements(scene.elements,.6),appState:{...scene.appState,zoom:{value:.6},viewModeEnabled:true,activeTool:{type:'hand',customType:null,locked:false,lastActiveTool:null}},scrollToContent:true}} viewModeEnabled={true} zenModeEnabled={true} theme="light" name="Knowledge map" onChange={(_,state)=>setZoom(state.zoom.value)} onPaste={()=>false} validateEmbeddable={false} UIOptions={{canvasActions:{loadScene:false,saveToActiveFile:false,export:false,clearCanvas:false,changeViewBackgroundColor:false,toggleTheme:false,saveAsImage:false}}}/></div>
-   <div className="map-chrome">
-    <div className="level" role="status" aria-live="polite" aria-label={'Detail level: '+level}><span className="level-dots" aria-hidden="true"><i className="active"/><i className={zoom>=.7?'active':''}/><i className={zoom>=1.15?'active':''}/></span><span className="level-label">{level}</span></div>
+   <div className={hasDetails ? "map-chrome" : "map-chrome map-chrome--solo"}>
+    {hasDetails&&<div className="level" role="status" aria-live="polite" aria-label={'Detail level: '+level}><span className="level-dots" aria-hidden="true"><i className="active"/><i className={zoom>=.7?'active':''}/><i className={zoom>=1.15?'active':''}/></span><span className="level-label">{level}</span></div>}
     <div className="zoom-controls" aria-label="Map zoom controls">
      <button type="button" onClick={()=>changeZoom(.8)} aria-label="Zoom out">−</button>
      <output aria-label="Zoom percentage">{Math.round(zoom*100)}%</output>
@@ -69,7 +62,7 @@ function App({scene}){
    </div>
   </section>
   <footer className="site-footer">
-   <details className="text-version"><summary>Text</summary><p>Notice → Connect → Try → Reflect → Repeat. Closer: questions, patterns, experiments, revisions. Deepest: facts vs guesses, prototypes, feedback, changing beliefs.</p></details>
+   <details className="text-version"><summary>Text</summary><p>Money · Physical Health · Mental Health · Learning</p></details>
    <span className="aside-thought">Entirely subjective. Your approval was never the point.</span>
   </footer>
  </main>;
