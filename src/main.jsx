@@ -62,7 +62,7 @@ function App({scene}){
    </div>
   </section>
   <footer className="site-footer">
-   <details className="text-version"><summary>Text</summary><p>Money · Physical Health · Mental Health · Learning</p></details>
+   <details className="text-version"><summary>Text</summary><p>Money · Physical Health · Mental Health · Learning</p><a href="https://www.youtube.com/watch?v=CNMo3EtWHu8" target="_blank" rel="noopener noreferrer">What is Bank ↗</a></details>
    <span className="aside-thought">Entirely subjective. Your approval was never the point.</span>
   </footer>
  </main>;

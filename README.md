@@ -1,6 +1,6 @@
 # Knowledge map
 
-A free, static, read-only knowledge map. It currently contains four empty top-level topics: **Money**, **Physical Health**, **Mental Health**, **Learning**. No descriptions, example knowledge points, or private findings are published.
+A free, static, read-only knowledge map. It contains four top-level topics: **Money**, **Physical Health**, **Mental Health**, **Learning**. The first approved resource is [What is Bank](https://www.youtube.com/watch?v=CNMo3EtWHu8) under Money. No other knowledge content has been published.
 
 ## Viewer
 
@@ -9,10 +9,10 @@ The website deliberately uses very little interface copy: the map fills most of 
 | Canvas zoom | Visible content |
 | --- | --- |
 | Below 70% | Four category blocks |
-| 70%–114% | Reserved for future knowledge nodes |
+| 70%–114% | Money → What is Bank video link; future knowledge nodes |
 | 115% and above | Reserved for deeper notes |
 
-All current elements use `customData.minZoom: 0`; zoom currently reveals no additional material. The detail-level indicator is hidden until detailed elements are present. Fit restores all four categories. The collapsible text alternative lists only the category names. The downloadable `map.excalidraw` is a normal Excalidraw v2 file; open it in the free Excalidraw editor. All drawing elements are present in the file; semantic visibility is a feature of this website, stored as each element's `customData.minZoom`.
+The four roots remain visible at `customData.minZoom: 0`. The Money video node (card, title, connector) is revealed at `0.7`, with a YouTube URL in Excalidraw's native `link` field on both card and title, so tapping the linked element opens the video in view mode. The `1.15` level is reserved for future details. Fit restores all four categories. The collapsible text alternative contains the four categories and an accessible video hyperlink. The downloadable `map.excalidraw` is a normal Excalidraw v2 file; open it in the free Excalidraw editor. All drawing elements are present in the file; semantic visibility is a feature of this website, stored as each element's `customData.minZoom`.
 
 ## Private source → public map
 
