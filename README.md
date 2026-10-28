@@ -52,3 +52,15 @@ GitHub Pages for a public repository and the MIT-licensed Excalidraw component d
 `npm test` checks the four category roots, absence of demo content, semantic zoom extensibility, center-preserving zoom, scene portability and controlled view-only mode. These are focused tests, not a security audit. For browser QA, verify desktop and phone fit, pan, zoom thresholds, keyboard controls, legible mobile initial view, download import into Excalidraw, no horizontal overflow, and absence of errors/network writes. Do not claim deployment until the actual Pages URL works.
 
 API references: [Excalidraw props](https://docs.excalidraw.com/docs/@excalidraw/excalidraw/api/props/), [imperative API](https://docs.excalidraw.com/docs/@excalidraw/excalidraw/api/props/excalidraw-api), [self-hosting fonts](https://docs.excalidraw.com/docs/@excalidraw/excalidraw/installation).
+
+## Visual browser QA
+
+A separate GitHub Actions workflow, `.github/workflows/playwright-visual-qa.yml`, uses real headless Chromium through Playwright to check the **deployed public URL** and save desktop (1440×900) and phone (390×844) screenshots.
+
+- Runs automatically after a successful `Build and deploy public map` workflow, or manually via **Actions → Playwright visual QA → Run workflow**. It does **not** publish content or read the private `personal` repository.
+- Installs Playwright and Chromium on the GitHub Actions runner and executes `scripts/visual-qa.mjs`.
+- Tests HTTP status, page rendering, overflow, public Excalidraw node/link metadata, zoom controls across the 70% threshold, and the accessible YouTube link opening a new tab.
+- Uploads `knowledge-map-visual-qa` artifact with desktop and phone screenshots, `report.json`, and console diagnostics. Artifacts are retained for 30 days.
+- Excalidraw's **canvas-embedded link gesture** is not conclusively tested by clicking the fallback HTML link; use screenshots and manual pointer QA for that interaction.
+
+The workflow is a repeatable verification step. A successful build alone is not evidence that a map is visually correct.

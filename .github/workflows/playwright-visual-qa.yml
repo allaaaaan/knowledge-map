@@ -1,0 +1,39 @@
+name: Playwright visual QA
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Build and deploy public map"]
+    types: [completed]
+
+permissions:
+  contents: read
+
+jobs:
+  screenshots:
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install Playwright
+        run: |
+          npm ci
+          npm install --no-save --package-lock=false playwright@1.57.0
+          npx playwright install --with-deps chromium
+      - name: Capture deployed site on desktop and phone
+        env:
+          MAP_URL: https://allaaaaan.github.io/knowledge-map/
+        run: node scripts/visual-qa.mjs
+      - name: Upload screenshots and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: knowledge-map-visual-qa
+          path: qa-output/
+          if-no-files-found: warn
+          retention-days: 30
