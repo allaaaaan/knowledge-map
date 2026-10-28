@@ -2,9 +2,9 @@
 
 A free, static, read-only knowledge map built with the open-source Excalidraw React component. The included map is **original generic demonstration content about learning**, not the owner's personal facts.
 
-## Explore
+## Viewer
 
-Drag to pan; pinch or use + / − to zoom. Zoom reveals three layers:
+The website deliberately uses very little interface copy: the map fills most of the screen, with compact read-only zoom/fit controls. On narrow screens the initial view starts at a readable zoom with pan available (Fit still shows the whole overview). A small personal statement sits unobtrusively below the map. Zoom reveals three layers:
 
 | Canvas zoom | Visible content |
 | --- | --- |
@@ -12,7 +12,7 @@ Drag to pan; pinch or use + / − to zoom. Zoom reveals three layers:
 | 70%–114% | Supporting connections |
 | 115% and above | Field notes and examples |
 
-Fit returns to the overview. Keyboard: focus the map then use + / − and 0 (fit). A plain-text alternative follows the canvas. The downloadable `map.excalidraw` is a normal Excalidraw v2 file; open it in the free Excalidraw editor. All drawing elements are present in the file; semantic visibility is a feature of this website, stored as each element's `customData.minZoom`.
+Fit returns to the overview. Keyboard: focus the map then use + / − and 0 (fit). A discreet collapsible text alternative follows the canvas. The downloadable `map.excalidraw` is a normal Excalidraw v2 file; open it in the free Excalidraw editor. All drawing elements are present in the file; semantic visibility is a feature of this website, stored as each element's `customData.minZoom`.
 
 ## Private source → public map
 
@@ -49,6 +49,6 @@ GitHub Pages for a public repository and the MIT-licensed Excalidraw component d
 
 ## Verification
 
-`npm test` checks semantic levels, center-preserving zoom, scene portability and the demo's absence of external/private data, plus controlled view-only mode. These are focused tests, not a security audit. For browser QA, verify desktop and phone fit, pan, zoom thresholds, keyboard controls, help dismissal, download import into Excalidraw, no horizontal overflow, and absence of errors/network writes. Do not claim deployment until the actual Pages URL works.
+`npm test` checks semantic levels, center-preserving zoom, scene portability and the demo's absence of external/private data, plus controlled view-only mode. These are focused tests, not a security audit. For browser QA, verify desktop and phone fit, pan, zoom thresholds, keyboard controls, legible mobile initial view, download import into Excalidraw, no horizontal overflow, and absence of errors/network writes. Do not claim deployment until the actual Pages URL works.
 
 API references: [Excalidraw props](https://docs.excalidraw.com/docs/@excalidraw/excalidraw/api/props/), [imperative API](https://docs.excalidraw.com/docs/@excalidraw/excalidraw/api/props/excalidraw-api), [self-hosting fonts](https://docs.excalidraw.com/docs/@excalidraw/excalidraw/installation).
